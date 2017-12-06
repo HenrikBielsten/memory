@@ -17,31 +17,61 @@
 
     <script type="text/javascript">
 
+
+    // TODO:
+    // 2. Turn cards
+    // 3. If match: stay turned. If no match: turn over on timer.
+    // 4. Animate cards turn
+    // 5. Make sure you can't click when cards are turned (stresstest)
+    // 6. Create difficulty settings
+
     const cards = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H']
     const board = document.querySelector('.board')
     const start = document.querySelector('.start_button');
-
-    cards.sort(function(a, b) {
-      return 0.5 - Math.random()
-    });
 
 
     // When the start button is clicked the board is cleared and a function sorts all the cards randomly.
     start.addEventListener('click', (event) => {
       board.innerHTML = " ";             // Clears board
-      cards.sort(function(a, b) {        // Sorts the cards in a random order
+      cards.sort(function(a, b) {        // Sorts the cards array in a random order
         return 0.5 - Math.random()
       });
 
       // This loops through the card array, creates a new div for each of them, adds the class .card to them, sets their data to their string taken from the array and then appends them as a child of the .board element.
       cards.forEach((card) => {
-        const card_div = document.createElement('div'); // Creates the divs
-        card_div.classList.add('card');   // Adds the class .card
-        card_div.dataset.card = card;     // Sets data
-        board.appendChild(card_div);      // Appends to .board-element
+
+        const card_container = document.createElement('div'); // Creates the divs
+        card_container.classList.add('card_container');   // Adds the class .card
+        card_container.dataset.card = card;     // Sets data
+        board.appendChild(card_container);      // Appends to .board-element
+
+        const card_div_front = document.createElement('div'); // Creates the divs
+        card_div_front.classList.add('card_front');   // Adds the class .card
+        card_div_front.dataset.card = card;     // Sets data
+        card_container.appendChild(card_div_front);      // Appends to .board-element
+
+        const card_div_back = document.createElement('div'); // Creates the divs
+        card_div_back.classList.add('card_back');   // Adds the class .card
+        card_div_back.dataset.card = card;     // Sets data
+        card_container.appendChild(card_div_back);      // Appends to .board-element
       })
     })
 
+    // This dynamicly adds eventlisteners to every element that is created and has the class .card. How it does it: Whenever any element within the body element is clicked this code checks if that element has the class .card. If it does it executes.
+    document.body.addEventListener('click', (event) => {
+
+      if (event.target.className === 'card_front') {
+
+        const card_front_flipped = document.querySelector('.card_front');
+        card_front_flipped.classList.toggle('card_front_flipped');
+        console.log('flipped front');
+
+        const card_back_flipped = document.querySelector('.card_back');
+        card_back_flipped.classList.toggle('card_back_flipped');
+        console.log('flipped back');
+      }
+
+    })
 
 
     </script>

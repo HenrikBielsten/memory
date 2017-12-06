@@ -24,39 +24,74 @@ body {
   flex-flow: row wrap;
 }
 
-.card {
+.card_container {
+  position:relative;
+}
+
+.card_container, .card_front, .card_back {
   width: 20vh;
   height: 20vh;
+  perspective:1000;
 }
 
-.card[data-card="A"] {
-  background-color: green;
+.card_front, .card_back {
+  backface-visibility:hidden;
+  position:absolute;
+  transition: all .5s ease-in-out;
+  top:0;
+  left:0;
 }
 
-.card[data-card="B"] {
-  background-color: blue;
+.card_front {
+  z-index: 2;
 }
 
-.card[data-card="C"] {
-  background-color: yellow;
-}
-
-.card[data-card="D"] {
-  background-color: red;
-}
-
-.card[data-card="E"] {
-  background-color: orange;
-}
-
-.card[data-card="F"] {
-  background-color: pink;
-}
-
-.card[data-card="G"] {
+.card_back {
+  transform:rotateY(180deg);
   background-color: beige;
 }
 
-.card[data-card="H"] {
+.card_front_flipped {
+  transform:rotateY(-180deg);
+}
+
+.card_back_flipped {
+  transform:rotateY(0deg);
+}
+
+.card_front:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.card_front[data-card="A"] {
+  background-color: green;
+}
+
+.card_front[data-card="B"] {
+  background-color: blue;
+}
+
+.card_front[data-card="C"] {
+  background-color: yellow;
+}
+
+.card_front[data-card="D"] {
+  background-color: red;
+}
+
+.card_front[data-card="E"] {
+  background-color: orange;
+}
+
+.card_front[data-card="F"] {
+  background-color: pink;
+}
+
+.card_front[data-card="G"] {
+  background-color: beige;
+}
+
+.card_front[data-card="H"] {
   background-color: purple;
 }
