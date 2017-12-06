@@ -3,7 +3,15 @@ body {
   height: 100vh;
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
+.start_button {
+  width: 20vh;
+  height: 10vh;
+  background-color: red;
+  border-radius: 10px;;
 }
 
 .board {
@@ -19,5 +27,36 @@ body {
 .card {
   width: 20vh;
   height: 20vh;
+}
+
+.card[data-card="A"] {
+  background-color: green;
+}
+
+.card[data-card="B"] {
+  background-color: blue;
+}
+
+.card[data-card="C"] {
+  background-color: yellow;
+}
+
+.card[data-card="D"] {
+  background-color: red;
+}
+
+.card[data-card="E"] {
+  background-color: orange;
+}
+
+.card[data-card="F"] {
+  background-color: pink;
+}
+
+.card[data-card="G"] {
   background-color: beige;
+}
+
+.card[data-card="H"] {
+  background-color: purple;
 }

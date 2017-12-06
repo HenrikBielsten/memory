@@ -9,6 +9,8 @@
 
   <body>
 
+    <button class='start_button' type="button" name="button">Start New Game</button>
+
     <div class="board">
 
     </div>
@@ -17,13 +19,30 @@
 
     const cards = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H']
     const board = document.querySelector('.board')
+    const start = document.querySelector('.start_button');
 
-    cards.forEach((card) => {
-      const card_div = document.createElement('div');
-      card_div.classList.add('card');
-      card_div.dataset.card = card;
-      board.appendChild(card_div);
+    cards.sort(function(a, b) {
+      return 0.5 - Math.random()
+    });
+
+
+    // When the start button is clicked the board is cleared and a function sorts all the cards randomly.
+    start.addEventListener('click', (event) => {
+      board.innerHTML = " ";             // Clears board
+      cards.sort(function(a, b) {        // Sorts the cards in a random order
+        return 0.5 - Math.random()
+      });
+
+      // This loops through the card array, creates a new div for each of them, adds the class .card to them, sets their data to their string taken from the array and then appends them as a child of the .board element.
+      cards.forEach((card) => {
+        const card_div = document.createElement('div'); // Creates the divs
+        card_div.classList.add('card');   // Adds the class .card
+        card_div.dataset.card = card;     // Sets data
+        board.appendChild(card_div);      // Appends to .board-element
+      })
     })
+
+
 
     </script>
 
