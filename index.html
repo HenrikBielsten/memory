@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/main.css">
+    <meta charset="utf-8">
+    <title>Fuzzy Memory</title>
+  </head>
+
+
+  <body>
+
+    <div class="board">
+
+    </div>
+
+    <script type="text/javascript">
+
+    const cards = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H']
+    const board = document.querySelector('.board')
+
+    cards.forEach((card) => {
+      const card_div = document.createElement('div');
+      card_div.classList.add('card');
+      card_div.dataset.card = card;
+      board.appendChild(card_div);
+    })
+
+    </script>
+
+
+
+
+  </body>
+
+</html>
