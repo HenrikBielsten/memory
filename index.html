@@ -24,6 +24,7 @@
     // 4. Animate cards turn
     // 5. Make sure you can't click when cards are turned (stresstest)
     // 6. Create difficulty settings
+    // 7. Add shuffle animation
 
     const cards = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H']
     const board = document.querySelector('.board')
@@ -42,18 +43,29 @@
 
         const card_container = document.createElement('div'); // Creates the divs
         card_container.classList.add('card_container');   // Adds the class .card
-        card_container.dataset.card = card;     // Sets data
+        card_container.dataset.letter = card;     // Sets data
         board.appendChild(card_container);      // Appends to .board-element
 
         const card_div_front = document.createElement('div'); // Creates the divs
         card_div_front.classList.add('card_front');   // Adds the class .card
-        card_div_front.dataset.card = card;     // Sets data
         card_container.appendChild(card_div_front);      // Appends to .board-element
 
         const card_div_back = document.createElement('div'); // Creates the divs
         card_div_back.classList.add('card_back');   // Adds the class .card
-        card_div_back.dataset.card = card;     // Sets data
         card_container.appendChild(card_div_back);      // Appends to .board-element
+      })
+
+      const renderedCards = document.querySelectorAll('.card_container');
+
+      Array.from(renderedCards).forEach((card) => {
+        card.addEventListener('click', (e) => {
+
+          const card_front_flipped = e.target.querySelector('.card_front');
+          card_front_flipped.classList.toggle('card_front_flipped');
+
+          const card_back_flipped = e.target.querySelector('.card_back');
+          card_back_flipped.classList.toggle('card_back_flipped');
+        })
       })
     })
 

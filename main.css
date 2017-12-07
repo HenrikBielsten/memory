@@ -37,18 +37,19 @@ body {
 .card_front, .card_back {
   backface-visibility:hidden;
   position:absolute;
-  transition: all .5s ease-in-out;
+  transition: all .3s linear;
   top:0;
   left:0;
+  pointer-events: none;
 }
 
 .card_front {
   z-index: 2;
+  background-color: beige;
 }
 
 .card_back {
   transform:rotateY(180deg);
-  background-color: beige;
 }
 
 .card_front_flipped {
@@ -64,34 +65,34 @@ body {
   transform: scale(1.05);
 }
 
-.card_front[data-card="A"] {
+.card_back[data-card="A"] {
   background-color: green;
 }
 
-.card_front[data-card="B"] {
+.card_back[data-card="B"] {
   background-color: blue;
 }
 
-.card_front[data-card="C"] {
+.card_back[data-card="C"] {
   background-color: yellow;
 }
 
-.card_front[data-card="D"] {
+.card_back[data-card="D"] {
   background-color: red;
 }
 
-.card_front[data-card="E"] {
+.card_back[data-card="E"] {
   background-color: orange;
 }
 
-.card_front[data-card="F"] {
+.card_back[data-card="F"] {
   background-color: pink;
 }
 
-.card_front[data-card="G"] {
+.card_back[data-card="G"] {
   background-color: beige;
 }
 
-.card_front[data-card="H"] {
+.card_back[data-card="H"] {
   background-color: purple;
 }
