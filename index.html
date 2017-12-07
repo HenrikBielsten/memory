@@ -19,9 +19,9 @@
 
 
     // TODO:
-    // 2. Turn cards
+    // Get first clicked and second clicked card
+    // Compare two cards that have been clicked.
     // 3. If match: stay turned. If no match: turn over on timer.
-    // 4. Animate cards turn
     // 5. Make sure you can't click when cards are turned (stresstest)
     // 6. Create difficulty settings
     // 7. Add shuffle animation
@@ -29,6 +29,7 @@
     const cards = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H']
     const board = document.querySelector('.board')
     const start = document.querySelector('.start_button');
+    const compare_array = []
 
 
     // When the start button is clicked the board is cleared and a function sorts all the cards randomly.
@@ -38,52 +39,55 @@
         return 0.5 - Math.random()
       });
 
-      // This loops through the card array, creates a new div for each of them, adds the class .card to them, sets their data to their string taken from the array and then appends them as a child of the .board element.
+      // This loops through the card array and creates a new card for each element, each consisting of a container a front and a back. We also use dataset to give each card a letter from the array so we can easily style each cards back and compare the cards later.
       cards.forEach((card) => {
 
-        const card_container = document.createElement('div'); // Creates the divs
-        card_container.classList.add('card_container');   // Adds the class .card
-        card_container.dataset.letter = card;     // Sets data
-        board.appendChild(card_container);      // Appends to .board-element
+        const card_container = document.createElement('div');       // Creates the divs
+        card_container.classList.add('card_container');             // Adds the class .card_container
+        card_container.dataset.letter = card;                       // Sets data-letter
+        board.appendChild(card_container);                          // Appends to .board element
 
-        const card_div_front = document.createElement('div'); // Creates the divs
-        card_div_front.classList.add('card_front');   // Adds the class .card
-        card_container.appendChild(card_div_front);      // Appends to .board-element
+        const card_div_front = document.createElement('div');       // Creates the divs
+        card_div_front.classList.add('card_front');                 // Adds the class .card_front
+        card_container.appendChild(card_div_front);                 // Appends to .card_container element
 
-        const card_div_back = document.createElement('div'); // Creates the divs
-        card_div_back.classList.add('card_back');   // Adds the class .card
-        card_container.appendChild(card_div_back);      // Appends to .board-element
+        const card_div_back = document.createElement('div');        // Creates the divs
+        card_div_back.classList.add('card_back');                   // Adds the class .card_back
+        card_div_back.dataset.letter = card;                        // Sets data-letter
+        card_container.appendChild(card_div_back);                  // Appends to .card_container element
       })
 
-      const renderedCards = document.querySelectorAll('.card_container');
+      // When a card is clicked we toggle the class of that card to make them flip over with an animation. The animation is specified in main.css.
+      const rendered_cards = document.querySelectorAll('.card_container');
 
-      Array.from(renderedCards).forEach((card) => {
+      Array.from(rendered_cards).forEach((card) => {
         card.addEventListener('click', (e) => {
 
           const card_front_flipped = e.target.querySelector('.card_front');
-          card_front_flipped.classList.toggle('card_front_flipped');
+          card_front_flipped.classList.toggle('card_front_flipped');          // Changes .card_front to .card_front_flipped
 
           const card_back_flipped = e.target.querySelector('.card_back');
-          card_back_flipped.classList.toggle('card_back_flipped');
+          card_back_flipped.classList.toggle('card_back_flipped');            // Changes .card_back to .card_back_flipped
+
+// PUT THIS IN AN IF STATEMENT THAT EXECUTES IF DATA_LETTER DID NOT MATCH
+
+          const data_letter = e.target.getAttribute('data-letter');
+
+            if (data_letter) {
+
+              compare_array.push(data_letter);
+
+              console.log(compare_array);
+
+
+              // setTimeout(function(){
+              //   card_front_flipped.classList.toggle('card_front_flipped');
+              //   card_back_flipped.classList.toggle('card_back_flipped');
+              // }, 3000);
+            }
+          })
         })
       })
-    })
-
-    // This dynamicly adds eventlisteners to every element that is created and has the class .card. How it does it: Whenever any element within the body element is clicked this code checks if that element has the class .card. If it does it executes.
-    document.body.addEventListener('click', (event) => {
-
-      if (event.target.className === 'card_front') {
-
-        const card_front_flipped = document.querySelector('.card_front');
-        card_front_flipped.classList.toggle('card_front_flipped');
-        console.log('flipped front');
-
-        const card_back_flipped = document.querySelector('.card_back');
-        card_back_flipped.classList.toggle('card_back_flipped');
-        console.log('flipped back');
-      }
-
-    })
 
 
     </script>

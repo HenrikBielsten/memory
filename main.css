@@ -45,7 +45,7 @@ body {
 
 .card_front {
   z-index: 2;
-  background-color: beige;
+  background-color: darkblue;
 }
 
 .card_back {
@@ -65,34 +65,34 @@ body {
   transform: scale(1.05);
 }
 
-.card_back[data-card="A"] {
+.card_back[data-letter="A"] {
   background-color: green;
 }
 
-.card_back[data-card="B"] {
+.card_back[data-letter="B"] {
   background-color: blue;
 }
 
-.card_back[data-card="C"] {
+.card_back[data-letter="C"] {
   background-color: yellow;
 }
 
-.card_back[data-card="D"] {
+.card_back[data-letter="D"] {
   background-color: red;
 }
 
-.card_back[data-card="E"] {
+.card_back[data-letter="E"] {
   background-color: orange;
 }
 
-.card_back[data-card="F"] {
+.card_back[data-letter="F"] {
   background-color: pink;
 }
 
-.card_back[data-card="G"] {
+.card_back[data-letter="G"] {
   background-color: beige;
 }
 
-.card_back[data-card="H"] {
+.card_back[data-letter="H"] {
   background-color: purple;
 }
