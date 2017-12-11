@@ -26,9 +26,9 @@
     const cards = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H']
     const board = document.querySelector('.board')
     const start = document.querySelector('.start_button');
-    const compare_array = []
-    var click_counter = 0;
-    var turn_counter = 0;
+    const compare_array = []   // This is an empty array to which, when a card is clicked, we push values that we want to compare to see if they match.
+    var click_counter = 0;     // This counts +1 each time a card is clicked. We use this to know when to turn over cards that did not match.
+    var turn_counter = 0;      // This counts +1 each time click_counter hits 2. We use this value to show the user how many turns the game took them.
 
 
     // When the start button is clicked the board is cleared and a function sorts all the cards randomly.
@@ -56,7 +56,7 @@
         card_container.appendChild(card_div_back);                  // Appends to .card_container element
       })
 
-      // When a card is clicked we toggle the class of that card to make them flip over with an animation. The animation is specified in main.css.
+      // When a card is clicked we add a "flipped state-class" to it, to make them flip over with an animation. The animation is specified in main.css. We also add 1 to our click_counter.
       const rendered_cards = document.querySelectorAll('.card_container');
 
       Array.from(rendered_cards).forEach((card) => {
@@ -74,23 +74,27 @@
 
           console.log(click_counter);
 
+          // Each time click_counter hits 2 we add 1 to turn_counter. We do this to keep track of how many turns the game has taken to complete.
           if (click_counter == 2) {
             turn_counter++;
             console.log('turn_counter is at',turn_counter);
           }
 
+          // Everytime a card is clicked we add that cards data-letter to compare_array. This way we can check if the cards were a match or not. The front and back of the clicked card are also added. We do this so that we can easily remove the previously added .card_front_flipped and .card_back_flipped classes (making the cards flip back to their original states). This happens as long as the compare_array contains less than 6 items.
           if (compare_array.length < 6) {
 
-              compare_array.push(data_letter, card_front_flipped, card_back_flipped);
+              compare_array.push(data_letter, card_front_flipped, card_back_flipped); // Pushes the data to the compare_array
 
               console.log(compare_array);
 
           }
 
+          // Now, when the compare_array contains 6 items (i.e after 2 cards have been turned), we need to check if the cards were a match or not.
           if (compare_array.length == 6) {
 
             console.log(compare_array);
 
+            // If the cards data-letters matched we set the compare_array's lengt to 0 again, thus removing all the previously pushed data. We also reset our click_counter back to 0.
             if (compare_array[0] == compare_array[3]) {
 
               compare_array.length = 0;
@@ -101,24 +105,25 @@
               console.log(compare_array);
             }
 
+            // When two cards have been turned and they did NOT match AND we click a third card (i.e click_counter hits 3) we remove the "flipped state-class" for each card in the compare_array, we set the compare_array to 0 thus clearing the previusly pushed data, we set the click_counter to 0 but then add 1 to it again (since we just clicked a card that needs to be counted as 1 click) and lastly we push the newly clicked cards data to the compare_array.
             if (compare_array[0] != compare_array[3] && click_counter == 3)  {
 
               console.log(compare_array);
 
-              compare_array[1].classList.remove('card_front_flipped');
-              compare_array[2].classList.remove('card_back_flipped');
-              compare_array[4].classList.remove('card_front_flipped');
-              compare_array[5].classList.remove('card_back_flipped');
+              compare_array[1].classList.remove('card_front_flipped');      // Flipps front of card 1
+              compare_array[2].classList.remove('card_back_flipped');       // Flipps back of card 1
+              compare_array[4].classList.remove('card_front_flipped');      // Flipps front of card 2
+              compare_array[5].classList.remove('card_back_flipped');       // Flipps back of card 2
 
-              compare_array.length = 0;
+              compare_array.length = 0;                                     // Clears compare_array of data
 
-              click_counter = 0;
-              click_counter++;
+              click_counter = 0;                                            // Sets click_counter back to 0
+              click_counter++;                                              // Adds 1 to click_counter to account for the newly clicked card
               console.log(click_counter);
 
               console.log(compare_array);
 
-              compare_array.push(data_letter, card_front_flipped, card_back_flipped);
+              compare_array.push(data_letter, card_front_flipped, card_back_flipped);  // Pushes data of the newly clicked card to compare_array
               console.log(compare_array);
 
             }
