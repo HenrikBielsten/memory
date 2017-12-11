@@ -19,9 +19,6 @@
 
 
     // TODO:
-    // Get first clicked and second clicked card
-    // Compare two cards that have been clicked.
-    // 3. If match: stay turned. If no match: turn over on timer.
     // 5. Make sure you can't click when cards are turned (stresstest)
     // 6. Create difficulty settings
     // 7. Add shuffle animation
@@ -30,6 +27,8 @@
     const board = document.querySelector('.board')
     const start = document.querySelector('.start_button');
     const compare_array = []
+    var click_counter = 0;
+    var turn_counter = 0;
 
 
     // When the start button is clicked the board is cleared and a function sorts all the cards randomly.
@@ -64,31 +63,96 @@
         card.addEventListener('click', (e) => {
 
           const card_front_flipped = e.target.querySelector('.card_front');
-          card_front_flipped.classList.toggle('card_front_flipped');          // Changes .card_front to .card_front_flipped
+          card_front_flipped.classList.add('card_front_flipped');          // Changes .card_front to .card_front_flipped
 
           const card_back_flipped = e.target.querySelector('.card_back');
-          card_back_flipped.classList.toggle('card_back_flipped');            // Changes .card_back to .card_back_flipped
-
-// PUT THIS IN AN IF STATEMENT THAT EXECUTES IF DATA_LETTER DID NOT MATCH
+          card_back_flipped.classList.add('card_back_flipped');            // Changes .card_back to .card_back_flipped
 
           const data_letter = e.target.getAttribute('data-letter');
 
-            if (data_letter) {
+          click_counter++;                                                // Adds 1 to click_counter variable
 
-              compare_array.push(data_letter);
+          console.log(click_counter);
+
+          if (click_counter == 2) {
+            turn_counter++;
+            console.log('turn_counter is at',turn_counter);
+          }
+
+          if (compare_array.length < 6) {
+
+              compare_array.push(data_letter, card_front_flipped, card_back_flipped);
 
               console.log(compare_array);
 
+          }
 
-              // setTimeout(function(){
-              //   card_front_flipped.classList.toggle('card_front_flipped');
-              //   card_back_flipped.classList.toggle('card_back_flipped');
-              // }, 3000);
+          if (compare_array.length == 6) {
+
+            console.log(compare_array);
+
+            if (compare_array[0] == compare_array[3]) {
+
+              compare_array.length = 0;
+
+              click_counter = 0;
+
+              console.log(click_counter);
+              console.log(compare_array);
             }
+
+            if (compare_array[0] != compare_array[3] && click_counter == 3)  {
+
+              console.log(compare_array);
+
+              compare_array[1].classList.remove('card_front_flipped');
+              compare_array[2].classList.remove('card_back_flipped');
+              compare_array[4].classList.remove('card_front_flipped');
+              compare_array[5].classList.remove('card_back_flipped');
+
+              compare_array.length = 0;
+
+              click_counter = 0;
+              click_counter++;
+              console.log(click_counter);
+
+              console.log(compare_array);
+
+              compare_array.push(data_letter, card_front_flipped, card_back_flipped);
+              console.log(compare_array);
+
+            }
+          }
+
           })
         })
       })
 
+
+      //   if (compare_array.length == 2) {
+      //     const compare = (compare_array[0] == compare_array[1]) ? "Match":"No Match";
+      //     console.log(compare);
+      //
+      //
+      //   if (compare_array[0] == 'Match') {
+      //     compare_array.length = 0;
+      //   }
+      //
+      //   else  {
+      //
+      //     setTimeout(function(){
+      //       compare_array[0].classList.remove('card_back_flipped');
+      //       compare_array[1].classList.remove('card_front_flipped');
+      //       compare_array[0].classList.remove('card_front_flipped');
+      //       compare_array[1].classList.remove('card_back_flipped');
+      //       compare_array.length = 0;
+      //       console.log(compare_array);
+      //     }, 1000);
+      //
+      //   }
+      //
+      //
+      // }
 
     </script>
 
