@@ -10,7 +10,8 @@
   <body>
 
     <div class="game">
-      <p class="timer"></p>
+      <p class="timer">Timer: 0 seconds</p>
+      <p class="turns">Turn Count: 0 turns</p>
     </div>
 
     <button class='start_button' type="button" name="button">Start New Game</button>
@@ -31,12 +32,13 @@
     const cards = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H']
     const board = document.querySelector('.board')
     const start = document.querySelector('.start_button');
+    const timer_div = document.querySelector('.timer');
+    const turn_div = document.querySelector('.turns');
     const compare_array = []   // This is an empty array to which, when a card is clicked, we push values that we want to compare to see if they match.
     var click_counter = 0;     // This counts +1 each time a card is clicked. We use this to know when to turn over cards that did not match.
     var turn_counter = 0;      // This counts +1 each time click_counter hits 2. We use this value to show the user how many turns the game took them.
-    var timer = 0;
-    var match_counter = 0;
-
+    var timer = 0;             // Counts the time from start of game to win state.
+    var match_counter = 0;     // Counts number of matches. 8 means you win.
 
     // When the start button is clicked the board is cleared and a function sorts all the cards randomly.
     start.addEventListener('click', (event) => {
@@ -50,6 +52,7 @@
       var timerVar = setInterval(function() {
                         timer++;
                         console.log("timer:", timer);
+                        timer_div.innerHTML = "Timer: " + timer + " seconds";
                       }, 1000);
 
       // This loops through the card array and creates a new card for each element, each consisting of a container a front and a back. We also use dataset to give each card a letter from the array so we can easily style each cards back and compare the cards later.
@@ -93,6 +96,7 @@
           // Each time click_counter hits 2 we add 1 to turn_counter. We do this to keep track of how many turns the game has taken to complete.
           if (click_counter == 2) {
             turn_counter++;
+            turn_div.innerHTML = "Turn Counter: " + turn_counter + " turns";
             console.log('turn_counter is at',turn_counter);
           }
 
