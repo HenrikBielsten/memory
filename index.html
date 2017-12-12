@@ -30,6 +30,7 @@
     // Theme and add pictures
 
     const cards = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H']
+    const game = document.querySelector('.game');
     const board = document.querySelector('.board')
     const start = document.querySelector('.start_button');
     const timer_div = document.querySelector('.timer');
@@ -127,15 +128,25 @@
               console.log(compare_array);
               console.log("Match counter:", match_counter);
 
+              // When match_counter reaches 8 you've won the game. We then create a div that will contain information on how well you did playing the game. We also stop the timer.
               if (match_counter == 8) {
 
-                console.log("You time was:", timer, "seconds");
+                const win_state = document.createElement('div');                // Creates win_state div
+                win_state.classList.add('win_state');                           // Gives it .win_state class
+                game.appendChild(win_state);                                    // Appends it to .game
 
-                console.log("You did it in:", turn_counter, "turns");
+                const winner = document.createElement('h1');                   // Creates winner div
+                winner.classList.add('winner');                                 // Gives it .winner class
+                win_state.appendChild(winner);                                  // Appends it to .win_state
 
-                console.log("WINNER!");
+                const stats = document.createElement('p');                    // Creates stats div
+                stats.classList.add('stats');                                   // Gives it .stats class
+                win_state.appendChild(stats);                                   // Appends it to .win_state
 
-                clearInterval(timerVar);
+                winner.innerHTML = "You won, well done!";                       // Displays win message
+                stats.innerHTML = "You did it in " + timer + " seconds and it took you " + turn_counter + " turns"; // Displays your stats
+
+                clearInterval(timerVar);                                        // Stops timer and resets it to 0.
               }
             }
 
