@@ -6,6 +6,10 @@ body {
   align-items: center;
   flex-direction: column;
   background-color: #3A1126;
+  background-image: url('images/table.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .game {
@@ -77,9 +81,13 @@ body {
 .board {
   width: 90vh;
   height: 90vh;
-  background-color: beige;
-  border: 2px solid black;
+  background-image: url('images/board2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 6px ridge lightgrey;
   border-radius: 15px;
+  box-shadow: 4px 4px 10px black;
   padding: 0 5px 5px 0;
   display: flex;
   justify-content: space-around;
@@ -116,18 +124,15 @@ body {
   top: 0;
   left: 0;
   pointer-events: none;
-  border: 2px solid black;
-  border-radius: 5px;
   box-shadow: 2px 2px 5px black;
 }
 
 .card_front {
   z-index: 2;
-  background-image: url('/images/flags/flags.png');
+  background-image: url('/images/cardback2.jpg');
   background-position: center;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
-  background-color: white;
 }
 
 .card_back {
