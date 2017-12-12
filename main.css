@@ -80,6 +80,7 @@ body {
   background-color: beige;
   border: 2px solid black;
   border-radius: 15px;
+  padding: 0 5px 5px 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -88,9 +89,18 @@ body {
   z-index: 1;
 }
 
+:root {
+  --animation-time: 200s;
+}
+
 .card_container {
   position: relative;
   pointer-events: auto;
+  animation: offset var(--animation-time) ease-in;
+}
+
+.offset_1 {
+  transform: translateX(200px);
 }
 
 .card_container, .card_front, .card_back {
@@ -108,6 +118,7 @@ body {
   pointer-events: none;
   border: 2px solid black;
   border-radius: 5px;
+  box-shadow: 2px 2px 5px black;
 }
 
 .card_front {
@@ -124,11 +135,13 @@ body {
 }
 
 .card_front_flipped {
-  transform: rotateY(-180deg);
+  transform: rotateY(180deg);
+  transition: all .3s linear;
 }
 
 .card_back_flipped {
   transform: rotateY(0deg);
+  transition: all .3s linear;
 }
 
 .card_container:hover {
@@ -197,4 +210,13 @@ body {
   background-size: contain;
   background-repeat: no-repeat;
   background-color: white;
+}
+
+@keyframes offset {
+  0% {
+    transform: translateY(-1000px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
