@@ -14,25 +14,25 @@
       <p class="turns">Turn Count: 0 turns</p>
     </div>
 
-    <button class='start_button' type="button" name="button">Start New Game</button>
 
     <div class="board">
+      <button class='start_button' type="button" name="button">Start New Game</button>
 
     </div>
 
     <script type="text/javascript">
 
     // TODO:
-    // Visible time and turn count
     // Different game modes: time trial and normal
     // 6. Create difficulty settings
     // 7. Add shuffle animation
     // Theme and add pictures
 
-    const cards = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H']
+    const cards = ['A', 'A']
     const game = document.querySelector('.game');
     const board = document.querySelector('.board')
-    const start = document.querySelector('.start_button');
+    const start = document.querySelectorAll('.start_button');
+    const restart = document.querySelector('.restart');
     const timer_div = document.querySelector('.timer');
     const turn_div = document.querySelector('.turns');
     const compare_array = []   // This is an empty array to which, when a card is clicked, we push values that we want to compare to see if they match.
@@ -42,7 +42,8 @@
     var match_counter = 0;     // Counts number of matches. 8 means you win.
 
     // When the start button is clicked the board is cleared and a function sorts all the cards randomly.
-    start.addEventListener('click', (event) => {
+    Array.from(start).forEach((startRestart) => {
+      startRestart.addEventListener('click', (event) => {
 
       board.innerHTML = " ";             // Clears board
 
@@ -129,22 +130,27 @@
               console.log("Match counter:", match_counter);
 
               // When match_counter reaches 8 you've won the game. We then create a div that will contain information on how well you did playing the game. We also stop the timer.
-              if (match_counter == 8) {
+              if (match_counter == 1) {
 
                 const win_state = document.createElement('div');                // Creates win_state div
                 win_state.classList.add('win_state');                           // Gives it .win_state class
-                game.appendChild(win_state);                                    // Appends it to .game
+                board.appendChild(win_state);                                    // Appends it to .game
 
-                const winner = document.createElement('h1');                   // Creates winner div
+                const winner = document.createElement('h1');                    // Creates winner h1 tag
                 winner.classList.add('winner');                                 // Gives it .winner class
                 win_state.appendChild(winner);                                  // Appends it to .win_state
 
-                const stats = document.createElement('p');                    // Creates stats div
+                const stats = document.createElement('p');                      // Creates stats p tag
                 stats.classList.add('stats');                                   // Gives it .stats class
                 win_state.appendChild(stats);                                   // Appends it to .win_state
 
+                const restart = document.createElement('button');               // Creates restart button
+                restart.classList.add('start_button');                               // Gives it .start_button class
+                win_state.appendChild(restart);                                 // Appends it to .win_state
+
                 winner.innerHTML = "You won, well done!";                       // Displays win message
                 stats.innerHTML = "You did it in " + timer + " seconds and it took you " + turn_counter + " turns"; // Displays your stats
+                restart.innerHTML = "Restart Game";                             // Displays text on restart button
 
                 clearInterval(timerVar);                                        // Stops timer and resets it to 0.
               }
@@ -183,7 +189,7 @@
 
 
       })
-
+})
 
 
     </script>

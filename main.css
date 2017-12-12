@@ -1,10 +1,11 @@
 body {
   width: 100vw;
-  height: 100vh;
+  height: 96vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background-color: #3A1126;
 }
 
 .game {
@@ -24,6 +25,7 @@ body {
   background-color: beige;
   border: 2px solid black;
   border-radius: 25px;
+  box-shadow: 4px 4px 15px black;
   position: absolute;
   align-self: center;
   z-index: 50;
@@ -34,42 +36,56 @@ body {
 }
 
 .winner {
-  height: 15vh;
+  height: 10vh;
   width: 30vw;
+  margin-bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .stats {
-  height: 15vh;
+  height: 10vh;
   width: 30vw;
+  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .timer, .turns {
-  background-color: orange;
-  height: 10vh;
-  width: 10vw;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: white;
 }
 
 .start_button {
   width: 20vh;
   height: 10vh;
-  background-color: red;
+  margin-bottom: 2vh;
+  background-color: #254F58;
   border-radius: 10px;;
+  color: white;
+  z-index: 200;
+}
+
+.start_button:hover, .restart:hover {
+  cursor: pointer;
 }
 
 .board {
   width: 90vh;
   height: 90vh;
-  background-color: black;
+  background-color: beige;
+  border: 2px solid black;
+  border-radius: 15px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-flow: row wrap;
+  margin-top: 1vh;
+  z-index: 1;
 }
 
 .card_container {
@@ -90,11 +106,17 @@ body {
   top: 0;
   left: 0;
   pointer-events: none;
+  border: 2px solid black;
+  border-radius: 5px;
 }
 
 .card_front {
   z-index: 2;
-  background-color: darkblue;
+  background-image: url('/images/flags/flags.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: white;
 }
 
 .card_back {
@@ -109,39 +131,70 @@ body {
   transform: rotateY(0deg);
 }
 
-.card_front:hover {
+.card_container:hover {
   cursor: pointer;
-  transform: scale(1.05);
 }
 
 .card_back[data-letter="A"] {
-  background-color: green;
+  background-image: url('/images/flags/sweden.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: white;
 }
 
 .card_back[data-letter="B"] {
-  background-color: blue;
+  background-image: url('/images/flags/belize.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: white;
 }
 
 .card_back[data-letter="C"] {
-  background-color: yellow;
+  background-image: url('/images/flags/swaziland.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: white;
 }
 
 .card_back[data-letter="D"] {
-  background-color: red;
+  background-image: url('/images/flags/argentina.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: white;
 }
 
 .card_back[data-letter="E"] {
-  background-color: orange;
+  background-image: url('/images/flags/yemen.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: white;
 }
 
 .card_back[data-letter="F"] {
-  background-color: pink;
+  background-image: url('/images/flags/ukraine.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: white;
 }
 
 .card_back[data-letter="G"] {
-  background-color: beige;
+  background-image: url('/images/flags/honduras.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: white;
 }
 
 .card_back[data-letter="H"] {
-  background-color: purple;
+  background-image: url('/images/flags/iraq.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: white;
 }
