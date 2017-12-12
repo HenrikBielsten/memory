@@ -35,14 +35,22 @@
     var click_counter = 0;     // This counts +1 each time a card is clicked. We use this to know when to turn over cards that did not match.
     var turn_counter = 0;      // This counts +1 each time click_counter hits 2. We use this value to show the user how many turns the game took them.
     var timer = 0;
+    var match_counter = 0;
 
 
     // When the start button is clicked the board is cleared and a function sorts all the cards randomly.
     start.addEventListener('click', (event) => {
+
       board.innerHTML = " ";             // Clears board
+
       cards.sort(function(a, b) {        // Sorts the cards array in a random order
         return 0.5 - Math.random()
       });
+
+      var timerVar = setInterval(function() {
+                        timer++;
+                        console.log("timer:", timer);
+                      }, 1000);
 
       // This loops through the card array and creates a new card for each element, each consisting of a container a front and a back. We also use dataset to give each card a letter from the array so we can easily style each cards back and compare the cards later.
       cards.forEach((card) => {
@@ -109,8 +117,22 @@
 
               click_counter = 0;
 
+              match_counter++;
+
               console.log(click_counter);
               console.log(compare_array);
+              console.log("Match counter:", match_counter);
+
+              if (match_counter == 8) {
+
+                console.log("You time was:", timer, "seconds");
+
+                console.log("You did it in:", turn_counter, "turns");
+
+                console.log("WINNER!");
+
+                clearInterval(timerVar);
+              }
             }
 
             // When two cards have been turned and they did NOT match AND we click a third card (i.e click_counter hits 3) we remove the "flipped state-class" for each card in the compare_array, we set the .card_contianer's pointer-events back to "auto", we set the compare_array to 0 thus clearing the previusly pushed data, we set the click_counter to 0 but then add 1 to it again (since we just clicked a card that needs to be counted as 1 click) and lastly we push the newly clicked cards data to the compare_array.
@@ -140,8 +162,14 @@
           }
 
           })
+
+
         })
+
+
       })
+
+
 
     </script>
 
