@@ -9,28 +9,29 @@
 
   <body>
 
+    <button class='start_button'>Start New Game</button>
     <div class="game">
       <p class="timer">Timer: 0 seconds</p>
       <p class="turns">Turn Count: 0 turns</p>
     </div>
 
     <div class="board">
-      <button class='start_button' type="button" name="button">Start New Game</button>
     </div>
 
     <script type="text/javascript">
 
     // TODO:
+    // Cant click untill animation done
     // Different game modes: time trial and normal
     // 6. Create difficulty settings
     // 7. Add shuffle animation
     // Theme and add pictures
 
     const cards = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H']
+    // const cards = ['A', 'A']
     const game = document.querySelector('.game');
     const board = document.querySelector('.board')
     const start = document.querySelector('.start_button');
-    const restart = document.querySelector('.restart');
     const timer_div = document.querySelector('.timer');
     const turn_div = document.querySelector('.turns');
     const offset_array = []    // We push each created card to this array so that we can change animations for each card individually
@@ -39,21 +40,37 @@
     var turn_counter = 0;      // This counts +1 each time click_counter hits 2. We use this value to show the user how many turns the game took them.
     var timer = 0;             // Counts the time from start of game to win state.
     var match_counter = 0;     // Counts number of matches. 8 means you win.
+    var timerVar = null;       // Makes sure timeVar is initially null
 
-    // When the start button is clicked the board is cleared and a function sorts all the cards randomly. We also start the timer using a set interval
-    // Array.from(start).forEach((startRestart) => {
+    // When the start button is clicked we clear the .board and reset all arrays and counters to 0. A function then sorts all the cards randomly. After 1.6 seconds (when the cards that are rendered below have finished their animation) we start counting seconds using setInterval.
       start.addEventListener('click', (event) => {
 
-      board.innerHTML = " ";             // Clears board
+        board.innerHTML = " ";                                             // Clears board
 
-      cards.sort(function(a, b) {        // Sorts the cards array in a random order
-        return 0.5 - Math.random()
-      });
+        start.innerHTML = "Restart Game";                                  // Changes text displayed on .start_button
 
-      var timerVar = setInterval(function() {                  // This counts +1 to timer variable once every second
-        timer++;
-        timer_div.innerHTML = "Timer: " + timer + " seconds";  // This changes the output of the timer_div to always display the time in seconds
-      }, 1000);
+        offset_array.length = 0;                                           // Sets offset_array (used to, in CSS, offset cards rendered below) to 0
+        compare_array.length = 0;
+
+        clearInterval(timerVar);                                           // If the timer is running this stops it
+
+        turn_counter = 0;                                                  // Sets turn_counter to 0
+        turn_div.innerHTML = "Turn Count: " + turn_counter + " turns";     // Makes sure the reset turn count is displayed on screen
+        timer = 0;                                                         // Sets timer to 0
+        timer_div.innerHTML = "Timer: " + timer + " seconds";              // Makes sure the reset timer is displayed in screen
+        match_counter = 0;                                                 // Sets match_counter to 0
+        click_counter = 0;                                                 // Sets click_counter to 0
+
+        setTimeout(function() {
+          timerVar = setInterval(function() {                      // This counts +1 to timer variable once every second
+            timer++;
+            timer_div.innerHTML = "Timer: " + timer + " seconds";  // This changes the output of the timer_div to always display the time in seconds
+          }, 1000);
+        }, 1600);
+
+        cards.sort(function(a, b) {                                // Sorts the cards array in a random order
+          return 0.5 - Math.random()
+        });
 
       // This loops through the card array and creates a new card for each element, each consisting of a container a front and a back. We also use dataset to give each card a letter from the array so we can easily style each cards back and compare the cards later.
       cards.forEach((card) => {
@@ -116,14 +133,12 @@
           // Each time click_counter hits 2 we add 1 to turn_counter. We do this to keep track of how many turns the game has taken to complete.
           if (click_counter == 2) {
             turn_counter++;
-            turn_div.innerHTML = "Turn Counter: " + turn_counter + " turns";
-            console.log('turn_counter is at',turn_counter);
+            turn_div.innerHTML = "Turn Count: " + turn_counter + " turns";
           }
 
           // Everytime a card is clicked we add that cards data-letter to compare_array. This way we can check if the cards were a match or not. The front and back of the clicked card are also added. We do this so that we can easily remove the previously added .card_front_flipped and .card_back_flipped classes (making the cards flip back to their original states). Further we also add the .card_container (card) so that we can change CSS properties for it later. All of this happens as long as the compare_array contains less than 8 items.
           if (compare_array.length < 8) {
-
-              compare_array.push(data_letter, card_front_flipped, card_back_flipped, card); // Pushes the data to the compare_array
+            compare_array.push(data_letter, card_front_flipped, card_back_flipped, card); // Pushes the data to the compare_array
           }
 
           // Now, when the compare_array contains 8 items (i.e after 2 cards have been turned), we need to check if the cards were a match or not.
@@ -153,15 +168,10 @@
                 stats.classList.add('stats');                                   // Gives it .stats class
                 win_state.appendChild(stats);                                   // Appends it to .win_state
 
-                const restart = document.createElement('button');               // Creates restart button
-                restart.classList.add('start_button');                               // Gives it .start_button class
-                win_state.appendChild(restart);                                 // Appends it to .win_state
-
                 winner.innerHTML = "You won, well done!";                       // Displays win message
                 stats.innerHTML = "You did it in " + timer + " seconds and it took you " + turn_counter + " turns"; // Displays your stats
-                restart.innerHTML = "Restart Game";                             // Displays text on restart button
 
-                clearInterval(timerVar);                                        // Stops timer and resets it to 0.
+                clearInterval(timerVar);                                        // Stops timer
               }
             }
 

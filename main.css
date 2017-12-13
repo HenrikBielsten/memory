@@ -66,12 +66,16 @@ body {
 
 .start_button {
   width: 20vh;
-  height: 10vh;
-  margin-bottom: 2vh;
+  height: 8vh;
+  margin-bottom: 1vh;
   background-color: #254F58;
   border-radius: 10px;;
   color: white;
   z-index: 200;
+}
+
+button:focus {
+  outline: 0;
 }
 
 .start_button:hover, .restart:hover {
@@ -79,7 +83,7 @@ body {
 }
 
 .board {
-  width: 90vh;
+  width: 87vh;
   height: 90vh;
   background-image: url('images/board2.jpg');
   background-size: cover;
@@ -88,12 +92,11 @@ body {
   border: 6px ridge lightgrey;
   border-radius: 15px;
   box-shadow: 4px 4px 10px black;
-  padding: 0 5px 5px 0;
+  padding: 0 2px 2px 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-flow: row wrap;
-  margin-top: 1vh;
   z-index: 1;
 }
 
