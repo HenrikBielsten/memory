@@ -1,0 +1,23 @@
+"*":
+  "atom-beautify":
+    general:
+      _analyticsUserId: "9c8c5b5b-a16c-48c4-98f6-8e9bc05ef265"
+  core:
+    disabledPackages: [
+      "linter-js-standard"
+      "linter"
+    ]
+    telemetryConsent: "limited"
+    themes: [
+      "atom-dark-ui"
+      "one-dark-syntax"
+    ]
+  editor:
+    fontSize: 12
+    softWrap: true
+  "exception-reporting":
+    userId: "7a0b20c8-dc3d-4881-9cb1-8d65de5d2844"
+  "linter-php":
+    executablePath: "/Applications/MAMP/bin/php/php7.1.6/bin/php"
+  welcome:
+    showOnStartup: false
