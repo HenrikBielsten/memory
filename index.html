@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="styles/main.css">
     <meta charset="utf-8">
     <title>Fuzzy Memory</title>
   </head>
@@ -169,7 +169,7 @@
               match_counter++;                                                  // Adds 1 match to the match_counter
 
               // When match_counter reaches 8 you've won the game. We then create a div that will contain information on how well you did playing the game. We also stop the timer.
-              if (match_counter == 8) {
+              if (match_counter == 1) {
 
                 const win_state = document.createElement('div');                // Creates win_state div
                 win_state.classList.add('win_state');                           // Gives it .win_state class
