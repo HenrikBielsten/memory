@@ -14,10 +14,8 @@
       <p class="turns">Turn Count: 0 turns</p>
     </div>
 
-
     <div class="board">
       <button class='start_button' type="button" name="button">Start New Game</button>
-
     </div>
 
     <script type="text/javascript">
@@ -35,14 +33,14 @@
     const restart = document.querySelector('.restart');
     const timer_div = document.querySelector('.timer');
     const turn_div = document.querySelector('.turns');
-    const offset_array = []
+    const offset_array = []    // We push each created card to this array so that we can change animations for each card individually
     const compare_array = []   // This is an empty array to which, when a card is clicked, we push values that we want to compare to see if they match.
     var click_counter = 0;     // This counts +1 each time a card is clicked. We use this to know when to turn over cards that did not match.
     var turn_counter = 0;      // This counts +1 each time click_counter hits 2. We use this value to show the user how many turns the game took them.
     var timer = 0;             // Counts the time from start of game to win state.
     var match_counter = 0;     // Counts number of matches. 8 means you win.
 
-    // When the start button is clicked the board is cleared and a function sorts all the cards randomly.
+    // When the start button is clicked the board is cleared and a function sorts all the cards randomly. We also start the timer using a set interval
     // Array.from(start).forEach((startRestart) => {
       start.addEventListener('click', (event) => {
 
@@ -52,11 +50,10 @@
         return 0.5 - Math.random()
       });
 
-      var timerVar = setInterval(function() {
-                        timer++;
-                        console.log("timer:", timer);
-                        timer_div.innerHTML = "Timer: " + timer + " seconds";
-                      }, 1000);
+      var timerVar = setInterval(function() {                  // This counts +1 to timer variable once every second
+        timer++;
+        timer_div.innerHTML = "Timer: " + timer + " seconds";  // This changes the output of the timer_div to always display the time in seconds
+      }, 1000);
 
       // This loops through the card array and creates a new card for each element, each consisting of a container a front and a back. We also use dataset to give each card a letter from the array so we can easily style each cards back and compare the cards later.
       cards.forEach((card) => {
@@ -67,9 +64,7 @@
         board.appendChild(card_container);                          // Appends to .board element
 
         const offset_cards = document.querySelector('.card_container')
-
-        offset_array.push(card_container);
-
+        offset_array.push(card_container);                          // We push each card_container into an array for later use
 
         const card_div_front = document.createElement('div');       // Creates the divs
         card_div_front.classList.add('card_front');                 // Adds the class .card_front
@@ -80,14 +75,9 @@
         card_div_back.dataset.letter = card;                        // Sets data-letter
         card_container.appendChild(card_div_back);                  // Appends to .card_container element
 
-        // var time = Math.random();
-        //
-        // card_container.style.setProperty('--animation-time', time +'s');
-
-
-
       })
 
+      // Here we set a different duration for each cards initial animation using the array we pushed the card_containers to above
       offset_array[0].style.animationDuration = "1.6s";
       offset_array[1].style.animationDuration = "1.5s";
       offset_array[2].style.animationDuration = "1.4s";
@@ -111,7 +101,7 @@
       Array.from(rendered_cards).forEach((card) => {
         card.addEventListener('click', (e) => {
 
-          card.style.pointerEvents = "none";
+          card.style.pointerEvents = "none";                               // Makes the turned over card not clickable
 
           const card_front_flipped = e.target.querySelector('.card_front');
           card_front_flipped.classList.add('card_front_flipped');          // Adds .card_front_flipped
@@ -119,11 +109,9 @@
           const card_back_flipped = e.target.querySelector('.card_back');
           card_back_flipped.classList.add('card_back_flipped');            // Adds .card_back_flipped
 
-          const data_letter = e.target.getAttribute('data-letter');
+          const data_letter = e.target.getAttribute('data-letter');        // Retrieves the data-letter from the clicked card
 
-          click_counter++;                                                // Adds 1 to click_counter variable
-
-          console.log(click_counter);
+          click_counter++;                                                 // Adds 1 to click_counter variable
 
           // Each time click_counter hits 2 we add 1 to turn_counter. We do this to keep track of how many turns the game has taken to complete.
           if (click_counter == 2) {
@@ -136,35 +124,26 @@
           if (compare_array.length < 8) {
 
               compare_array.push(data_letter, card_front_flipped, card_back_flipped, card); // Pushes the data to the compare_array
-
-              console.log(compare_array);
-
           }
 
           // Now, when the compare_array contains 8 items (i.e after 2 cards have been turned), we need to check if the cards were a match or not.
           if (compare_array.length == 8) {
 
-            console.log(compare_array);
-
-            // If the cards data-letters matched we set the compare_array's lengt to 0 again, thus removing all the previously pushed data. We also reset our click_counter back to 0.
+            // If the cards data-letters matched we set the compare_array's lengt to 0 again, thus removing all the previously pushed data. We also reset our click_counter back to 0 and update our match_counter with 1.
             if (compare_array[0] == compare_array[4]) {
 
-              compare_array.length = 0;
+              compare_array.length = 0;                                         // Resets compare_array
 
-              click_counter = 0;
+              click_counter = 0;                                                // Resets the click_counter
 
-              match_counter++;
-
-              console.log(click_counter);
-              console.log(compare_array);
-              console.log("Match counter:", match_counter);
+              match_counter++;                                                  // Adds 1 match to the match_counter
 
               // When match_counter reaches 8 you've won the game. We then create a div that will contain information on how well you did playing the game. We also stop the timer.
               if (match_counter == 8) {
 
                 const win_state = document.createElement('div');                // Creates win_state div
                 win_state.classList.add('win_state');                           // Gives it .win_state class
-                board.appendChild(win_state);                                    // Appends it to .game
+                board.appendChild(win_state);                                   // Appends it to .game
 
                 const winner = document.createElement('h1');                    // Creates winner h1 tag
                 winner.classList.add('winner');                                 // Gives it .winner class
@@ -186,10 +165,8 @@
               }
             }
 
-            // When two cards have been turned and they did NOT match AND we click a third card (i.e click_counter hits 3) we remove the "flipped state-class" for each card in the compare_array, we set the .card_contianer's pointer-events back to "auto", we set the compare_array to 0 thus clearing the previusly pushed data, we set the click_counter to 0 but then add 1 to it again (since we just clicked a card that needs to be counted as 1 click) and lastly we push the newly clicked cards data to the compare_array.
+            // When two cards have been turned and they did NOT match AND we click a third card (i.e click_counter hits 3) we remove the "flipped state-class" for each card in the compare_array, we set the .card_contianer's pointer-events back to "auto" (so that they are again clickable), we set the compare_array to 0 thus clearing the previusly pushed data, we set the click_counter to 0 but then add 1 to it again (since we just clicked a card that needs to be counted as 1 click) and lastly we push the newly clicked cards data to the compare_array.
             if (compare_array[0] != compare_array[4] && click_counter == 3)  {
-
-              console.log(compare_array);
 
               compare_array[1].classList.remove('card_front_flipped');      // Flipps front of card 1
               compare_array[2].classList.remove('card_back_flipped');       // Flipps back of card 1
@@ -201,26 +178,15 @@
               compare_array.length = 0;                                     // Clears compare_array of data
 
               click_counter = 0;                                            // Sets click_counter back to 0
-              click_counter++;                                              // Adds 1 to click_counter to account for the newly clicked card
-              console.log(click_counter);
 
-              console.log(compare_array);
+              click_counter++;                                              // Adds 1 to click_counter to account for the newly clicked card
 
               compare_array.push(data_letter, card_front_flipped, card_back_flipped, card);  // Pushes data of the newly clicked card to compare_array
-              console.log(compare_array);
-
             }
           }
-
           })
-
-
         })
-
-
       })
-// })
-
 
     </script>
 
