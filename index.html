@@ -92,7 +92,13 @@
         card_div_back.dataset.letter = card;                        // Sets data-letter
         card_container.appendChild(card_div_back);                  // Appends to .card_container element
 
+        // This makes sure that you can't click the cards untill the last card is done animating and the timer starts counting
+        card_container.style.pointerEvents = "none";
+        setTimeout(function() {
+          card_container.style.pointerEvents = "auto";
+        }, 1600);
       })
+
 
       // Here we set a different duration for each cards initial animation using the array we pushed the card_containers to above
       offset_array[0].style.animationDuration = "1.6s";
