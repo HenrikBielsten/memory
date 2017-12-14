@@ -11,6 +11,19 @@
 
     <button class='start_button'>Start New Game</button>
     <div class="board">
+      <div class="instructions">
+        <h1>Welcome to this virtual memory game!</h1>
+        <h3>Rules</h3>
+        <ul>
+          <li>There are 16 cards and 8 pairs to find</li>
+          <li>Click a card to flip it over</li>
+          <li>Click another card to see if it matches the first one</li>
+          <li>Upon clicking the next card you will flip the last cards back, if they were not a match</li>
+          <li>Find all pairs to win!</li>
+          <li>Try to do it as fast as you can, using as few turns as possible (2 flips = 1 turn)</li>
+        </ul>
+        <h2 class="last">Press <span style="color:#76B782">Start New Game</span> above to give it a go!</h2>
+      </div>
       <div class="cards_div">
 
       </div>
@@ -30,13 +43,12 @@
     <script type="text/javascript">
 
     // TODO:
-    // Different game modes: time trial and normal
-    // 6. Create difficulty settings
-    // Theme and add pictures
+    // Clean up code
 
     const cards = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H']
     const game = document.querySelector('.game');
     const board = document.querySelector('.board');
+    const instructions = document.querySelector('.instructions');
     const cards_div = document.querySelector('.cards_div');
     const start = document.querySelector('.start_button');
     const timer_div = document.querySelector('.time_number');
@@ -49,10 +61,11 @@
     var match_counter = 0;     // Counts number of matches. 8 means you win.
     var timerVar = null;       // Makes sure timeVar is initially null
     var win_state = null;
-    var card_container = null;
 
     // When the start button is clicked we clear the .board and reset all arrays and counters to 0. A function then sorts all the cards randomly. After 1.6 seconds (when the cards that are rendered below have finished their animation) we start counting seconds using setInterval.
       start.addEventListener('click', (event) => {
+
+        instructions.style.animation = "win_state_back .5s forwards";
 
         if (win_state) {
           win_state.style.animation = "win_state_back .5s forwards";
@@ -93,8 +106,10 @@
         }, 2000)
         setTimeout(function() {
           count_down.innerHTML = "GO!";
-          count_down.style.animation = "count_down_offset .5s forwards";
         }, 3000)
+        setTimeout(function() {
+          count_down.style.animation = "count_down_offset .5s forwards";
+        }, 3100)
 
         setTimeout(function() {
           timerVar = setInterval(function() {                      // This counts +1 to timer variable once every second
@@ -140,7 +155,7 @@
       offset_array[2].style.animationDuration = "2.8s";
       offset_array[3].style.animationDuration = "2.7s";
       offset_array[4].style.animationDuration = "2.3s";
-      offset_array[5].style.animationDuration = "2.4";
+      offset_array[5].style.animationDuration = "2.4s";
       offset_array[6].style.animationDuration = "2.5s";
       offset_array[7].style.animationDuration = "2.6s";
       offset_array[8].style.animationDuration = "2.2s";
@@ -194,12 +209,12 @@
               match_counter++;                                                  // Adds 1 match to the match_counter
 
               // When match_counter reaches 8 you've won the game. We then create a div that will contain information on how well you did playing the game. We also stop the timer.
-              if (match_counter == 1) {
+              if (match_counter == 8) {
 
                 clearInterval(timerVar);                                        // Stops timer
 
                 setTimeout(function() {
-                  win_state = document.createElement('div');                // Creates win_state div
+                  win_state = document.createElement('div');                    // Creates win_state div
                   win_state.classList.add('win_state');                           // Gives it .win_state class
                   board.appendChild(win_state);                                   // Appends it to .game
 
