@@ -11,6 +11,9 @@
 
     <button class='start_button'>Start New Game</button>
     <div class="board">
+      <div class="cards_div">
+
+      </div>
     </div>
     <div class="game">
       <div class="counters">
@@ -32,9 +35,9 @@
     // Theme and add pictures
 
     const cards = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H']
-    // const cards = ['A', 'A']
     const game = document.querySelector('.game');
-    const board = document.querySelector('.board')
+    const board = document.querySelector('.board');
+    const cards_div = document.querySelector('.cards_div');
     const start = document.querySelector('.start_button');
     const timer_div = document.querySelector('.time_number');
     const turn_div = document.querySelector('.turn_number');
@@ -45,17 +48,23 @@
     var timer = 0;             // Counts the time from start of game to win state.
     var match_counter = 0;     // Counts number of matches. 8 means you win.
     var timerVar = null;       // Makes sure timeVar is initially null
+    var win_state = null;
+    var card_container = null;
 
     // When the start button is clicked we clear the .board and reset all arrays and counters to 0. A function then sorts all the cards randomly. After 1.6 seconds (when the cards that are rendered below have finished their animation) we start counting seconds using setInterval.
       start.addEventListener('click', (event) => {
+
+        if (win_state) {
+          win_state.style.animation = "win_state_back .5s forwards";
+        }
 
         // This makes sure that you can't click the restart button untill the last card is done animating. This is to prevent timer from bugging.
         start.style.pointerEvents = "none";
         setTimeout(function() {
           start.style.pointerEvents = "auto";
-        }, 2600);
+        }, 3000);
 
-        board.innerHTML = " ";                                             // Clears board
+        cards_div.innerHTML = " ";                                             // Clears board
 
         start.innerHTML = "Restart Game";                                  // Changes text displayed on .start_button
 
@@ -65,18 +74,34 @@
         clearInterval(timerVar);                                           // If the timer is running this stops it
 
         turn_counter = 0;                                                  // Sets turn_counter to 0
-        turn_div.innerHTML = turn_counter;     // Makes sure the reset turn count is displayed on screen
+        turn_div.innerHTML = turn_counter;                                 // Makes sure the reset turn count is displayed on screen
         timer = 0;                                                         // Sets timer to 0
-        timer_div.innerHTML = timer;              // Makes sure the reset timer is displayed in screen
+        timer_div.innerHTML = timer;                                       // Makes sure the reset timer is displayed in screen
         match_counter = 0;                                                 // Sets match_counter to 0
         click_counter = 0;                                                 // Sets click_counter to 0
+
+        const count_down = document.createElement('h1');
+        count_down.classList.add('count_down');
+        board.appendChild(count_down);
+        count_down.style.animation = "count_down_in .5s forwards";
+        count_down.innerHTML = "3";
+        setTimeout(function() {
+          count_down.innerHTML = "2";
+        }, 1000)
+        setTimeout(function() {
+          count_down.innerHTML = "1";
+        }, 2000)
+        setTimeout(function() {
+          count_down.innerHTML = "GO!";
+          count_down.style.animation = "count_down_offset .5s forwards";
+        }, 3000)
 
         setTimeout(function() {
           timerVar = setInterval(function() {                      // This counts +1 to timer variable once every second
             timer++;
             timer_div.innerHTML = timer;  // This changes the output of the timer_div to always display the time in seconds
           }, 1000);
-        }, 2600);
+        }, 3000);
 
         cards.sort(function(a, b) {                                // Sorts the cards array in a random order
           return 0.5 - Math.random()
@@ -88,7 +113,7 @@
         const card_container = document.createElement('div');       // Creates the divs
         card_container.classList.add('card_container');             // Adds the class .card_container
         card_container.dataset.letter = card;                       // Sets data-letter
-        board.appendChild(card_container);                          // Appends to .board element
+        cards_div.appendChild(card_container);                          // Appends to .board element
 
         const offset_cards = document.querySelector('.card_container')
         offset_array.push(card_container);                          // We push each card_container into an array for later use
@@ -106,26 +131,26 @@
         card_container.style.pointerEvents = "none";
         setTimeout(function() {
           card_container.style.pointerEvents = "auto";
-        }, 2600);
+        }, 3000);
       })
 
       // Here we set a different duration for each cards initial animation using the array we pushed the card_containers to above
-      offset_array[0].style.animationDuration = "2.6s";
-      offset_array[1].style.animationDuration = "2.5s";
-      offset_array[2].style.animationDuration = "2.4s";
-      offset_array[3].style.animationDuration = "2.3s";
-      offset_array[4].style.animationDuration = "1.9s";
-      offset_array[5].style.animationDuration = "2s";
-      offset_array[6].style.animationDuration = "2.1s";
-      offset_array[7].style.animationDuration = "2.2s";
-      offset_array[8].style.animationDuration = "1.8s";
-      offset_array[9].style.animationDuration = "1.7s";
-      offset_array[10].style.animationDuration = "1.6s";
-      offset_array[11].style.animationDuration = "1.5s";
-      offset_array[12].style.animationDuration = "1.1s";
-      offset_array[13].style.animationDuration = "1.2s";
-      offset_array[14].style.animationDuration = "1.3s";
-      offset_array[15].style.animationDuration = "1.4s";
+      offset_array[0].style.animationDuration = "3s";
+      offset_array[1].style.animationDuration = "2.9s";
+      offset_array[2].style.animationDuration = "2.8s";
+      offset_array[3].style.animationDuration = "2.7s";
+      offset_array[4].style.animationDuration = "2.3s";
+      offset_array[5].style.animationDuration = "2.4";
+      offset_array[6].style.animationDuration = "2.5s";
+      offset_array[7].style.animationDuration = "2.6s";
+      offset_array[8].style.animationDuration = "2.2s";
+      offset_array[9].style.animationDuration = "2.1s";
+      offset_array[10].style.animationDuration = "2s";
+      offset_array[11].style.animationDuration = "1.9s";
+      offset_array[12].style.animationDuration = "1.5s";
+      offset_array[13].style.animationDuration = "1.6s";
+      offset_array[14].style.animationDuration = "1.7s";
+      offset_array[15].style.animationDuration = "1.8s";
 
       // When a card is clicked we add a "flipped state-class" to it, to make them flip over with an animation. The animation is specified in main.css. We also add 1 to our click_counter. To make sure you cannot click the card again while it's turned over we set the CSS property pointer-events to "none" on the .card_container.
       const rendered_cards = document.querySelectorAll('.card_container');
@@ -171,22 +196,24 @@
               // When match_counter reaches 8 you've won the game. We then create a div that will contain information on how well you did playing the game. We also stop the timer.
               if (match_counter == 1) {
 
-                const win_state = document.createElement('div');                // Creates win_state div
-                win_state.classList.add('win_state');                           // Gives it .win_state class
-                board.appendChild(win_state);                                   // Appends it to .game
-
-                const winner = document.createElement('h1');                    // Creates winner h1 tag
-                winner.classList.add('winner');                                 // Gives it .winner class
-                win_state.appendChild(winner);                                  // Appends it to .win_state
-
-                const stats = document.createElement('h3');                     // Creates stats h3 tag
-                stats.classList.add('stats');                                   // Gives it .stats class
-                win_state.appendChild(stats);                                   // Appends it to .win_state
-
-                winner.innerHTML = "You won, well done!";                       // Displays win message
-                stats.innerHTML = "You did it in " + timer + " seconds and it took you " + turn_counter + " turns"; // Displays your stats
-
                 clearInterval(timerVar);                                        // Stops timer
+
+                setTimeout(function() {
+                  win_state = document.createElement('div');                // Creates win_state div
+                  win_state.classList.add('win_state');                           // Gives it .win_state class
+                  board.appendChild(win_state);                                   // Appends it to .game
+
+                  const winner = document.createElement('h1');                    // Creates winner h1 tag
+                  winner.classList.add('winner');                                 // Gives it .winner class
+                  win_state.appendChild(winner);                                  // Appends it to .win_state
+
+                  const stats = document.createElement('h3');                     // Creates stats h3 tag
+                  stats.classList.add('stats');                                   // Gives it .stats class
+                  win_state.appendChild(stats);                                   // Appends it to .win_state
+
+                  winner.innerHTML = "You won, well done!";                       // Displays win message
+                  stats.innerHTML = "You did it in " + timer + " seconds and it took you " + turn_counter + " turns"; // Displays your stats
+                }, 500);
               }
             }
 
