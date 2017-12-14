@@ -23,3 +23,7 @@ Enjoy!
 
 Made by:
 Henrik Bielsten
+
+Tested by:
+Rickard Pietsch
+Albert Norberg
