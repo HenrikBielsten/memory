@@ -5,10 +5,10 @@ This was made for an assignment as part of a Javascript course at YRGO Gothenbur
 
 The assignment:
 
-Create a memory game with 8-10 pairs
-The cards should be positioned randomly before a new game start
-The game must include a restart button that reorder the cards randomly, using Javascript and not through a page reload
-The game should be programmed in HTML, CSS and Javascript, no libraries or other languages are allowed
+- Create a memory game with 8-10 pairs
+- The cards should be positioned randomly before a new game start
+- The game must include a restart button that reorder the cards randomly, using Javascript and not through a page reload
+- The game should be programmed in HTML, CSS and Javascript, no libraries or other languages are allowed
 
 How to use:
 
